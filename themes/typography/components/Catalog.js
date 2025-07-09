@@ -87,11 +87,8 @@ const Catalog = ({ post }) => {
       }
     }, throttleMs)
 
-    const content = document.querySelector('#container-inner')
-    if (!content) return // 防止 content 不存在
-
     // 添加滚动和内容变化的监听
-    content.addEventListener('scroll', actionSectionScrollSpy)
+    window.addEventListener('scroll', actionSectionScrollSpy)
 
     // 初始执行一次
     setTimeout(() => {
@@ -99,7 +96,7 @@ const Catalog = ({ post }) => {
     }, 300) // 延迟执行确保 DOM 已完全加载
 
     return () => {
-      content?.removeEventListener('scroll', actionSectionScrollSpy)
+      window.removeEventListener('scroll', actionSectionScrollSpy)
     }
   }, [post, toc])
 

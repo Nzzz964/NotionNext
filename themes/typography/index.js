@@ -67,12 +67,12 @@ const LayoutBase = props => {
     <ThemeGlobalSimple.Provider value={{ searchModal }}>
       <div
         id='theme-typography'
-        className={`${siteConfig('FONT_STYLE')} font-typography h-screen flex flex-col dark:text-gray-300 bg-white dark:bg-[#232222] overflow-hidden`}>
+        className={`${siteConfig('FONT_STYLE')} font-typography min-h-screen dark:text-gray-300 bg-white dark:bg-[#232222]`}>
         <Style />
 
         {siteConfig('SIMPLE_TOP_BAR', null, CONFIG) && <TopBar {...props} />}
 
-        <div className='flex flex-1 mx-auto overflow-hidden py-8 md:max-w-7xl xl:pr-0 xl:pl-52 2xl:px-24 w-screen'>
+        <div className='flex flex-1 mx-auto py-8 md:max-w-7xl xl:pr-0 xl:pl-52 2xl:px-24 w-screen min-h-screen'>
           {/* 主体 - 使用 flex 布局 */}
           {/* 文章详情才显示 */}
           {props.post && (
@@ -80,11 +80,11 @@ const LayoutBase = props => {
               <Catalog {...props} />
             </div>
           )}
-          <div className='overflow-hidden flex-1 '>
-            {/* 左侧内容区域 - 可滚动 */}
+          <div className='overflow-hidden flex-1'>
+            {/* 左侧内容区域 - 自然滚动 */}
             <div
               id='container-inner'
-              className='h-full w-full md:pt-20 xl:px-8 overflow-y-auto scroll-hidden relative'>
+              className='w-full md:pt-20 xl:px-8 relative max-w-4xl xl:max-w-5xl mx-auto'>
               {/* 锚点 */}
               <div id='title' data-id='title' className='notion-header-anchor'></div>
               {/* 移动端导航 - 显示在顶部 */}
@@ -108,7 +108,7 @@ const LayoutBase = props => {
           </div>
 
           {/* 右侧导航和页脚 - 固定不滚动 */}
-          <div className='hidden md:flex md:flex-col md:flex-shrink-0 md:h-[100vh] sticky top-20'>
+          <div className='hidden md:flex md:flex-col md:flex-shrink-0 md:h-[100vh] sticky top-7'>
             <NavBar {...props} />
             <Footer {...props} />
           </div>
