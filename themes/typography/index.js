@@ -67,7 +67,7 @@ const LayoutBase = props => {
     <ThemeGlobalSimple.Provider value={{ searchModal }}>
       <div
         id='theme-typography'
-        className={`${siteConfig('FONT_STYLE')} font-typography min-h-screen dark:text-gray-300 bg-white dark:bg-[#232222]`}>
+        className={`${siteConfig('FONT_STYLE')} font-typography min-h-screen dark:text-gray-300 bg-white dark:bg-[#232222] min-h-screen`}>
         <Style />
 
         {siteConfig('SIMPLE_TOP_BAR', null, CONFIG) && <TopBar {...props} />}
@@ -108,7 +108,7 @@ const LayoutBase = props => {
           </div>
 
           {/* 右侧导航和页脚 - 固定不滚动 */}
-          <div className='hidden md:flex md:flex-col md:flex-shrink-0 md:h-[100vh] sticky top-7'>
+          <div className='hidden md:flex md:flex-col md:flex-shrink-0 md:h-full sticky top-8'>
             <NavBar {...props} />
             <Footer {...props} />
           </div>
@@ -206,7 +206,7 @@ const LayoutArchive = props => {
   const sortPosts = groupArticlesByYearArray(posts)
   return (
     <>
-      <div className='mb-10 pb-20 md:pb-12 p-5  min-h-screen w-full'>
+      <div className='mb-10 pb-20 md:pb-12 p-5 w-full'>
         {sortPosts.map(p => (
           <BlogArchiveItem
             key={p.year}
