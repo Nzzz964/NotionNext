@@ -14,10 +14,13 @@ const Catalog = ({ post }) => {
   const tRef = useRef(null)
   const [activeSection, setActiveSection] = useState(null)
 
-  // 初始化 toc 数据，避免重复执行
-  const [toc, setToc] = useState(() => {
+  // 初始化 toc 数据，当 post 改变时重新计算
+  const [toc, setToc] = useState([])
+
+  // 当 post 改变时更新 toc
+  useEffect(() => {
     if (post?.toc) {
-      return [
+      const newToc = [
         {
           id: 'title',
           type: 'header',
@@ -26,9 +29,18 @@ const Catalog = ({ post }) => {
         },
         ...post.toc
       ]
+      setToc(newToc)
+      // 重置活动章节
+      setActiveSection(null)
+      // 将目录滚动到顶部
+      if (tRef?.current) {
+        tRef.current.scrollTo({ top: 0, behavior: 'smooth' })
+      }
+    } else {
+      setToc([])
+      setActiveSection(null)
     }
-    return []
-  })
+  }, [post])
 
   // 监听滚动事件
   useEffect(() => {
@@ -98,7 +110,7 @@ const Catalog = ({ post }) => {
     return () => {
       window.removeEventListener('scroll', actionSectionScrollSpy)
     }
-  }, [post, toc])
+  }, [post, toc, activeSection]) // 添加 activeSection 依赖
 
   // 无目录就直接返回空
   if (!post || toc.length < 1) {
